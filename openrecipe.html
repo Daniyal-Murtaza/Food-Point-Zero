@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Open Recipe</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            Weather_karachi();
+            setInterval(Weather_karachi, 300000); // Refresh every 5 minutes
+        });
+
+        function Weather_karachi() {
+            $.ajax({
+                url: 'https://api.weatherapi.com/v1/current.json?key=d6caeaff15be417488f155829231802&q=Karachi',
+                success: function (response) {
+                    var weather = response.current.condition.text;
+                    var temp_c = response.current.temp_c;
+                    var temp_f = response.current.temp_f;
+                    var wind_mph = response.current.wind_mph;
+                    var wind_kph = response.current.wind_kph;
+
+                    $('#weather').html('Weather: ' + weather);
+                    $('#temp_c').html('Temperature (C): ' + temp_c);
+                    $('#temp_f').html('Temperature (F): ' + temp_f);
+                    $('#wind_mph').html('Wind Speed (mph): ' + wind_mph);
+                    $('#wind_kph').html('Wind Speed (kph): ' + wind_kph);
+                }
+            });
+        }
+    </script>
+</head>
+
+<body class="body">
+    <center>
+        <img id="logo" src="logo.png" alt="logo">
+        <h1 class="pink">Welcome to food.0</h1>
+        <p class="line"> <em> "Whip up a masterpiece with every recipe, only on Open Recipe!" </em></p>
+        <div class="wea" id="weather"></div>
+        <div class="wea" id="temp_c"></div>
+        <div class="wea" id="temp_f"></div>
+        <div class="wea" id="wind_mph"></div>
+        <div class="wea" id="wind_kph"></div>
+
+        <div id="div1">
+            <fieldset>
+                <legend class="line">Preference</legend>
+                <input type="radio" name="carn" value="carn">
+                <label for="carn">Carnivores</label><br>
+
+                <input type="radio" name="veg" value="veg">
+                <label for="veg">Vegetarian</label><br>
+
+                <input type="radio" name="vegan" value="vegan">
+                <label for="vegan">Vegan food</label>
+            </fieldset>
+        </div>
+
+        <div id="div2">
+            <h3>Most Frequently eat dishes</h3>
+            <label class="col" for="dish">Choose the dish:</label>
+            <select name="dish" id="dish">
+                <option class="black" value="d1">Biryani</option>
+                <option class="black" value="d2">Spaghetti</option>
+                <option class="black" value="d3">Fish</option>
+                <option class="black" value="d4">Omellete Rice</option>
+                <option class="black" value="d5">Soup</option>
+            </select>
+            <input class="btn" type="submit" value="Submit">
+            <br><br>
+        </div>
+    </center>
+
+</body>
+
+</html>
